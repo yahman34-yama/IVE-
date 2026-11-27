@@ -1,1 +1,124 @@
-# IVE-
+# IVE-<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IVE 1枚ランダム表示</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      background: #111114;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: #1c1c22;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      text-align: center;
+    }
+    .label {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+    .photo-box {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #27272f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      animation: popIn 0.25s ease-out;
+    }
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    button {
+      width: 100%;
+      max-width: 420px;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 999px;
+      background: #ff2e63;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div id="memberName" class="label">読み込み中...</div>
+    <div class="photo-box">
+      <img id="photo" src="" alt="IVE member" />
+    </div>
+  </div>
+
+  <button id="nextBtn" type="button">もう1枚ぼんっ</button>
+
+  <script>
+    // メンバー名と画像（リポジトリに入れたファイル名 ./〇〇.jpg か直リンクURL）を入れる
+    const items = [
+      { name: "Gaeul", url: "./gaeul.jpg" },
+      { name: "Yujin", url: "./yujin.jpg" },
+      { name: "Rei", url: "./rei.jpg" },
+      { name: "Wonyoung", url: "./wonyoung.jpg" },
+      { name: "Liz", url: "./liz.jpg" },
+      { name: "Leeseo", url: "./leeseo.jpg" }
+    ];
+
+    const nameEl = document.getElementById("memberName");
+    const imgEl = document.getElementById("photo");
+    const btnEl = document.getElementById("nextBtn");
+
+    function showRandomPhoto() {
+      const picked = items[Math.floor(Math.random() * items.length)];
+      nameEl.textContent = picked.name;
+
+      imgEl.style.animation = "none";
+      imgEl.offsetHeight;
+      imgEl.style.animation = "popIn 0.25s ease-out";
+
+      imgEl.src = picked.url;
+    }
+
+    btnEl.addEventListener("click", showRandomPhoto);
+    showRandomPhoto();
+  </script>
+</body>
+</html>
